@@ -1,0 +1,7 @@
+/.jekyll-cache/
+/.jekyll-source/
+/.sass-cache/
+/_site/
+/Gemfile.lock
+/vendor/
+/wiki/
