@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% seo %}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="ShapeBit Docs home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>ShapeBit <strong>Docs</strong></span>
+      </a>
+      <button class="navigation-toggle" type="button" aria-controls="site-navigation" aria-expanded="false">
+        Menu
+      </button>
+      <nav class="header-links" aria-label="Project links">
+        <a href="https://shapebit.software">Website</a>
+        <a href="https://github.com/shapebit-software/os">GitHub</a>
+      </nav>
+    </header>
+
+    <div class="site-shell">
+      <aside class="sidebar" id="site-navigation">
+        <nav aria-label="Documentation navigation">
+          {% assign system_design = site.pages | where: "path", "System-Design.md" | first %}
+          {% assign decision_index = site.pages | where: "path", "Architecture-Decisions.md" | first %}
+          <a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ '/' | relative_url }}">Overview</a>
+          <a class="nav-link{% if page.path == 'System-Design.md' %} active{% endif %}" href="{{ system_design.url | relative_url }}">System design</a>
+
+          <details class="nav-group"{% if page.path contains 'ADR-' or page.path == 'Architecture-Decisions.md' %} open{% endif %}>
+            <summary>Architecture decisions</summary>
+            <a class="nav-link{% if page.path == 'Architecture-Decisions.md' %} active{% endif %}" href="{{ decision_index.url | relative_url }}">Decision index</a>
+            {% assign decision_pages = site.pages | where_exp: "item", "item.path contains 'ADR-'" | sort: "path" %}
+            {% for item in decision_pages %}
+              <a class="nav-link nav-link-small{% if page.path == item.path %} active{% endif %}" href="{{ item.url | relative_url }}">{{ item.title | default: item.basename }}</a>
+            {% endfor %}
+          </details>
+
+          <details class="nav-group"{% if page.path contains 'Checklist-' %} open{% endif %}>
+            <summary>Checklists</summary>
+            {% assign checklist_pages = site.pages | where_exp: "item", "item.path contains 'Checklist-'" | sort: "path" %}
+            {% for item in checklist_pages %}
+              <a class="nav-link nav-link-small{% if page.path == item.path %} active{% endif %}" href="{{ item.url | relative_url }}">{{ item.title | default: item.basename }}</a>
+            {% endfor %}
+          </details>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <article>
+          {{ content }}
+        </article>
+        {% assign wiki_page = page.path | remove: '.md' %}
+        {% if page.path == 'README.md' %}{% assign wiki_page = 'Home' %}{% endif %}
+        <footer class="page-footer">
+          <a href="https://github.com/shapebit-software/docs/wiki/{{ wiki_page }}/_edit">Edit this page in the GitHub Wiki</a>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      const toggle = document.querySelector('.navigation-toggle');
+      const navigation = document.querySelector('#site-navigation');
+      toggle.addEventListener('click', () => {
+        const open = navigation.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open);
+      });
+    </script>
+  </body>
+</html>

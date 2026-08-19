@@ -1,0 +1,47 @@
+title: ShapeBit Docs
+description: Architecture, decisions, and engineering documentation for ShapeBit OS.
+url: https://shapebit.software
+baseurl: ""
+repository: shapebit-software/docs
+
+lang: en
+markdown: kramdown
+permalink: pretty
+
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-relative-links
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-titles-from-headings
+
+include:
+  - README.md
+
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+
+optional_front_matter:
+  remove_originals: true
+
+readme_index:
+  enabled: true
+  remove_originals: true
+  with_frontmatter: true
+
+relative_links:
+  enabled: true
+  collections: true
+
+titles_from_headings:
+  enabled: true
+  strip_title: false
+  collections: true
+
+exclude:
+  - _Sidebar.md

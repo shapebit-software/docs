@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+wiki_source=$(realpath "${1:?usage: prepare-site WIKI_SOURCE [DESTINATION]}")
+destination=$(realpath -m "${2:-$repo_root/.jekyll-source}")
+
+if [[ ! -f "$wiki_source/Home.md" ]]; then
+    echo "Wiki source does not contain Home.md: $wiki_source" >&2
+    exit 1
+fi
+
+case "$destination" in
+    "$repo_root/.jekyll-source"|"${RUNNER_TEMP:-/tmp}/"*) ;;
+    *)
+        echo "Refusing to replace unsafe destination: $destination" >&2
+        exit 1
+        ;;
+esac
+
+rm -rf -- "$destination"
+mkdir -p "$destination"
+
+cp "$repo_root/_config.yml" "$destination/_config.yml"
+cp -R "$repo_root/_layouts" "$destination/_layouts"
+cp -R "$repo_root/assets" "$destination/assets"
+
+find "$wiki_source" -maxdepth 1 -type f -name '*.md' ! -name '_Sidebar.md' \
+    -exec cp {} "$destination/" \;
+
+mv "$destination/Home.md" "$destination/README.md"
