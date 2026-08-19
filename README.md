@@ -6,6 +6,8 @@ ShapeBit OS documentation.
 Documentation content is maintained in the
 [ShapeBit Docs Wiki](https://github.com/shapebit-software/docs/wiki) and
 published at [shapebit.software](https://shapebit.software/).
+Published page paths are normalized to lowercase, for example
+`/system-design/`.
 
 ## Local development
 
