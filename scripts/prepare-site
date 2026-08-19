@@ -29,4 +29,30 @@ cp -R "$repo_root/assets" "$destination/assets"
 find "$wiki_source" -maxdepth 1 -type f -name '*.md' ! -name '_Sidebar.md' \
     -exec cp {} "$destination/" \;
 
+while IFS= read -r -d '' page; do
+    page_name=$(basename "$page" .md)
+    if [[ "$page_name" == "Home" ]]; then
+        permalink="/"
+    else
+        permalink="/${page_name,,}/"
+    fi
+
+    prepared_page=$(mktemp)
+    if [[ $(head -n 1 "$page") == "---" ]]; then
+        {
+            head -n 1 "$page"
+            printf 'permalink: %s\n' "$permalink"
+            tail -n +2 "$page"
+        } > "$prepared_page"
+    else
+        {
+            printf '%s\n' '---'
+            printf 'permalink: %s\n' "$permalink"
+            printf '%s\n\n' '---'
+            sed -n '1,$p' "$page"
+        } > "$prepared_page"
+    fi
+    mv "$prepared_page" "$page"
+done < <(find "$destination" -maxdepth 1 -type f -name '*.md' -print0)
+
 mv "$destination/Home.md" "$destination/README.md"
