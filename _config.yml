@@ -1,8 +1,8 @@
-title: ShapeBit Docs
-description: Architecture, decisions, and engineering documentation for ShapeBit OS.
+title: ShapeBit OS
+description: A focused operating system, designed in the open.
 url: https://shapebit.software
 baseurl: ""
-repository: shapebit-software/docs
+repository: shapebit-software/website
 
 lang: en
 markdown: kramdown
@@ -11,6 +11,7 @@ permalink: pretty
 plugins:
   - jekyll-optional-front-matter
   - jekyll-readme-index
+  - jekyll-redirect-from
   - jekyll-relative-links
   - jekyll-seo-tag
   - jekyll-sitemap

@@ -8,28 +8,28 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="{{ '/' | relative_url }}" aria-label="ShapeBit Docs home">
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="ShapeBit home">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span>ShapeBit <strong>Docs</strong></span>
+        <span>ShapeBit</span>
       </a>
       <button class="navigation-toggle" type="button" aria-controls="site-navigation" aria-expanded="false">
         Menu
       </button>
       <nav class="header-links" aria-label="Project links">
+        <a href="{{ '/docs/' | relative_url }}">Docs</a>
+        <a href="https://github.com/shapebit-software/os">GitHub</a>
       </nav>
     </header>
 
     <div class="site-shell">
       <aside class="sidebar" id="site-navigation">
         <nav aria-label="Documentation navigation">
-          {% assign system_design = site.pages | where: "path", "system-design.md" | first %}
-          {% assign decision_index = site.pages | where: "path", "architecture-decisions.md" | first %}
-          <a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ '/' | relative_url }}">Overview</a>
-          <a class="nav-link{% if page.path == 'system-design.md' %} active{% endif %}" href="{{ system_design.url | relative_url }}">System design</a>
+          <a class="nav-link{% if page.url == '/docs/' %} active{% endif %}" href="{{ '/docs/' | relative_url }}">Documentation</a>
+          <a class="nav-link{% if page.path == 'docs/system-design.md' %} active{% endif %}" href="{{ '/docs/system-design/' | relative_url }}">System design</a>
 
-          <details class="nav-group"{% if page.path contains 'adr-' or page.path == 'architecture-decisions.md' %} open{% endif %}>
+          <details class="nav-group"{% if page.path contains 'adr-' or page.path == 'docs/architecture-decisions.md' %} open{% endif %}>
             <summary>Architecture decisions</summary>
-            <a class="nav-link{% if page.path == 'architecture-decisions.md' %} active{% endif %}" href="{{ decision_index.url | relative_url }}">Decision index</a>
+            <a class="nav-link{% if page.path == 'docs/architecture-decisions.md' %} active{% endif %}" href="{{ '/docs/architecture-decisions/' | relative_url }}">Decision index</a>
             {% assign decision_pages = site.pages | where_exp: "item", "item.path contains 'adr-'" | sort: "path" %}
             {% for item in decision_pages %}
               <a class="nav-link nav-link-small{% if page.path == item.path %} active{% endif %}" href="{{ item.url | relative_url }}">{{ item.title | default: item.basename }}</a>
@@ -50,8 +50,6 @@
         <article>
           {{ content }}
         </article>
-        {% assign wiki_page = page.path | remove: '.md' %}
-        {% if page.path == 'README.md' %}{% assign wiki_page = 'Home' %}{% endif %}
       </main>
     </div>
 
