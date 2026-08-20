@@ -10,22 +10,17 @@
     <header class="site-header">
       <a class="brand" href="{{ '/' | relative_url }}" aria-label="ShapeBit home">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span>ShapeBit</span>
+        <span>ShapeBit <strong>Docs</strong></span>
       </a>
       <button class="navigation-toggle" type="button" aria-controls="site-navigation" aria-expanded="false">
         Menu
       </button>
-      <nav class="header-links" aria-label="Project links">
-        <a href="{{ '/docs/' | relative_url }}">Docs</a>
-        <a href="https://github.com/shapebit-software/os">GitHub</a>
-      </nav>
     </header>
 
     <div class="site-shell">
       <aside class="sidebar" id="site-navigation">
         <nav aria-label="Documentation navigation">
           <a class="nav-link{% if page.url == '/docs/' %} active{% endif %}" href="{{ '/docs/' | relative_url }}">Documentation</a>
-          <a class="nav-link{% if page.path == 'docs/system-design.md' %} active{% endif %}" href="{{ '/docs/system-design/' | relative_url }}">System design</a>
 
           <details class="nav-group"{% if page.path contains 'adr-' or page.path == 'docs/architecture-decisions.md' %} open{% endif %}>
             <summary>Architecture decisions</summary>
