@@ -22,7 +22,7 @@
         <nav aria-label="Documentation navigation">
           <a class="nav-link{% if page.url == '/docs/' %} active{% endif %}" href="{{ '/docs/' | relative_url }}">Introduction</a>
 
-          <details class="nav-group"{% unless page.url == '/docs/' %} open{% endunless %}>
+          <details class="nav-group"{% unless page.url == '/docs/' or page.url == '/docs/license/' %} open{% endunless %}>
             <summary>Architecture</summary>
             <a class="nav-link nav-link-small{% if page.path == 'docs/Architecture.md' %} active{% endif %}" href="{{ '/docs/architecture/' | relative_url }}">Overview</a>
             <a class="nav-link nav-link-small{% if page.path == 'docs/base-system.md' %} active{% endif %}" href="{{ '/docs/base-system/' | relative_url }}">Base System</a>
@@ -32,6 +32,8 @@
             <a class="nav-link nav-link-small{% if page.path == 'docs/desktop.md' or page.path contains 'docs/desktop-' %} active{% endif %}" href="{{ '/docs/desktop/' | relative_url }}">Desktop Environment</a>
             <a class="nav-link nav-link-small{% if page.path == 'docs/diagnostics-recovery.md' %} active{% endif %}" href="{{ '/docs/diagnostics-recovery/' | relative_url }}">Diagnostics and Recovery</a>
           </details>
+
+          <a class="nav-link{% if page.path == 'docs/License.md' %} active{% endif %}" href="{{ '/docs/license/' | relative_url }}">License</a>
         </nav>
       </aside>
 
